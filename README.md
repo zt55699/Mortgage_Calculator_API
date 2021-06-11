@@ -16,6 +16,13 @@ sudo pip3 install -r requirements.txt
 The text file contains the necessary packages.<br><br>
 
 
+```bash
+python3 app.py
+```
+Start a local server at port:5000 using the command above. <br><br>
+
+
+
 # Consume the API
 
 
@@ -102,15 +109,14 @@ PATCH http://127.0.0.1:5000/interest-rate/
 ```
 
 Parameters(json in request body):
-* Interest Rate: FLOAT
-
-*for constrain details, please consult [schema.py](../main/schema.py)*
-
 ``` json
 {
     "interest_rate": 0.015
 }
 ```
+* Interest Rate: FLOAT
+
+*for constrain details, please consult [schema.py](../main/schema.py)*
 
 Return:
 

@@ -2,7 +2,7 @@ from rates import InterestRate, InsuranceRate
 import math
 
 
-def cal_payment_amount(amount:int, down_pay:int, schedule:str, period:int) -> int:
+def cal_payment_amount(amount: int, down_pay: int, schedule: str, period: int) -> int:
     # for price over 1m and downpay less than 20% already been filtered out by schema
     down_percent = down_pay*1.0/amount
     loan = amount - down_pay
@@ -15,14 +15,11 @@ def cal_payment_amount(amount:int, down_pay:int, schedule:str, period:int) -> in
     payment = P*(r*((1+r)**n))/((1+r)**n-1)
     return round(payment)
 
-def cal_mortgage_amount(amount, schedule, period):
-    pass
-
-
-
-
-
-
+def cal_mortgage_amount(payment: int, schedule: str, period: int) -> int:
+    r = cal_interest_rate(schedule, get_anual_rate())
+    n = cal_num_payments(schedule, period)
+    P = payment/ ((r*((1+r)**n))/((1+r)**n-1))
+    return round(P)
 
 def cal_interest_rate(schedule: str, anual_rate: float) -> float:
     r = 0
@@ -33,7 +30,6 @@ def cal_interest_rate(schedule: str, anual_rate: float) -> float:
     elif schedule == "monthly":
         r = anual_rate /12
     return r
-
 
 def cal_num_payments(schedule: str, period: int) -> int:
     n = 0

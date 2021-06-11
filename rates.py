@@ -23,8 +23,18 @@ class InsuranceRate(db.Model):
     def __repr__(self):
         return str(self.rate)
 
+
 def init_rates():
     interest_rate = InterestRate(id=0, anual_rate=0.025)
     db.session.add(interest_rate)
     for down, rate in INSUR_RATES.items():
         db.session.add(InsuranceRate(down_range=down, rate=rate))
+    db.session.commit()
+
+def update_interest_rate(new_rate):
+    interest_rate = InterestRate.query.get(0)
+    old_rate = interest_rate.anual_rate
+    interest_rate.anual_rate = new_rate
+    db.session.commit()
+    message = {'anual interest-rates' : [{'old':old_rate}, {'new':new_rate}]}
+    return message

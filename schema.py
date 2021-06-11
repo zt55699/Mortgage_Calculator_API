@@ -23,11 +23,16 @@ class PaymentAmountSchema(Schema):
 
 
 class MortgageAmountSchema(Schema):
-    amount = fields.Integer(required=True, validate=validate.Range(min=0))
+    payment = fields.Integer(required=True, validate=validate.Range(min=0))
     schedule = fields.String(required=True, validate=validate.OneOf(
         ['weekly', 'biweekly', 'monthly']))
     period = fields.Integer(required=True, validate=validate.Range(min=5, max=25))
 
 
+class InterestRateSchema(Schema):
+    interest_rate = fields.Float(required=True, validate=validate.Range(min=0.00, max=1.00))
+
+
 payment_schema = PaymentAmountSchema()
 mortgage_schema = MortgageAmountSchema()
+interest_schema = InterestRateSchema()

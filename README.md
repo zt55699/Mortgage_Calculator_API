@@ -49,6 +49,12 @@ Return:
 
 * Payment amount per scheduled payment in JSON format
 
+``` json
+{
+    "payment-amount": 4239
+}
+```
+
 
 ---
 ## **GET /mortgage-amount**
@@ -57,7 +63,7 @@ Return:
 Get the maximum mortgage amount (principal)
 
 ```
-GET http://127.0.0.1:5000/payment-amount/?payment=<Payment amount>&schedule=<Payment schedule>&period=<Amortization Period>
+GET http://127.0.0.1:5000/mortgage-amount/?payment=<Payment amount>&schedule=<Payment schedule>&period=<Amortization Period>
 ```
 
 Parameters(in query string):
@@ -72,12 +78,18 @@ Parameters(in query string):
 
 Example:
 ```
-GET http://127.0.0.1:5000/payment-amount/?payment=2000&schedule=weekly&period=10
+GET http://127.0.0.1:5000/mortgage-amount/?payment=1550&schedule=biweekly&period=10
 ```
 
 Return:
 
 * Maximum Mortgage that can be taken out in JSON format
+
+``` json
+{
+    "mortgage-amount": 357747
+}
+```
 
 ---
 ## **PATCH /interest-rate**
@@ -89,7 +101,7 @@ Change the interest rate used by the application
 PATCH http://127.0.0.1:5000/interest-rate/
 ```
 
-Parameters(in request body):
+Parameters(json in request body):
 * Interest Rate: FLOAT
 
 *for constrain details, please consult [schema.py](../main/schema.py)*

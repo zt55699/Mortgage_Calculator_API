@@ -1,5 +1,6 @@
 from db import db
 
+
 DEFAULT_RATE = 0.025
 INSUR_RATES = {
         '5-9.99%': 0.0315,
@@ -31,10 +32,26 @@ def init_rates():
         db.session.add(InsuranceRate(down_range=down, rate=rate))
     db.session.commit()
 
+
 def update_interest_rate(new_rate):
     interest_rate = InterestRate.query.get(0)
     old_rate = interest_rate.anual_rate
     interest_rate.anual_rate = new_rate
     db.session.commit()
-    message = {'anual interest-rates' : [{'old':old_rate}, {'new':new_rate}]}
+    message = {'anual interest-rate' : 
+        [{'old':toStr_percent(old_rate)}, {'new':toStr_percent(new_rate)}]}
     return message
+
+def toStr_percent(value :float) -> str:
+    str_percent = str(value*100) + '%'
+    return str_percent
+
+def toNum_percent(value: str) -> float:
+    float_percent = float(value.strip('%'))/100
+    return float_percent
+
+# def model_exists(model_class) -> bool:
+#     import sqlalchemy as sa
+#     engine = sa.create_engine('sqlite:///data.db')
+#     insp = sa.inspect(engine)
+#     return insp.has_table(model_class)

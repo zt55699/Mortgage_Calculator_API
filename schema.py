@@ -1,4 +1,4 @@
-from marshmallow import Schema, fields, validate, validates_schema, ValidationError
+from marshmallow import Schema, fields, validate, validates, validates_schema, ValidationError
 import math
 
 
@@ -30,7 +30,12 @@ class MortgageAmountSchema(Schema):
 
 
 class InterestRateSchema(Schema):
-    interest_rate = fields.Float(required=True, validate=validate.Range(min=0.00, max=1.00))
+    interest_rate = fields.Float(required=True)
+    
+    @validates("interest_rate")
+    def validate_rate(self, value):
+        if value <= 0:
+            raise ValidationError("must be greater than 0.")
 
 
 payment_schema = PaymentAmountSchema()

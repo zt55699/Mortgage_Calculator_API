@@ -6,6 +6,7 @@ sys.path.append(parentdir)
 try:
     import unittest
     from app import app
+    from db import db
     from calculator import *
 
 except Exception as e:
@@ -13,6 +14,10 @@ except Exception as e:
 
 
 class test_calculator(unittest.TestCase):
+
+    def setUp(self):
+        app.app_context().push()
+        db.init_app(app)
 
     # Dont worry about invalid inputs, which will be filtered out by schema
     def test_get_insurance_rate(self):
@@ -51,7 +56,4 @@ class test_calculator(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    from db import db
-    app.app_context().push()
-    db.init_app(app)
     unittest.main()

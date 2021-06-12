@@ -7,6 +7,7 @@ sys.path.append(parentdir)
 try:
     import unittest
     from app import app
+    from db import db
     
 
 except Exception as e:
@@ -17,6 +18,7 @@ class test_getPayment(unittest.TestCase):
 
     def setUp(self):
         self.tester = app.test_client(self)
+        db.init_app(app)
 
     # Check for missing parameters
     def test_missingParamemters(self):
@@ -76,8 +78,4 @@ class test_getPayment(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    from db import db
-    db.init_app(app)
     unittest.main()
-
-    

@@ -13,7 +13,8 @@ api = Api(app)
 
 @app.before_first_request
 def create_tables():
-    if not os.path.isfile('./data.db'):
+    # if database does not exist, then initialize it
+    if not os.path.isfile(f'{app.root_path}/data.db'):
         db.create_all()
         init_rates()
 
